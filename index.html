@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赵旭浪 - 学习资料与教学动画</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏 */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--secondary-color);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: var(--secondary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--light-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* 主要内容区域 */
+        section {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+        }
+        
+        .section-title span {
+            color: var(--secondary-color);
+        }
+        
+        /* 资源卡片 */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .resource-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .card-header i {
+            font-size: 1.8rem;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .resource-list {
+            list-style: none;
+        }
+        
+        .resource-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .resource-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .resource-link {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .resource-link:hover {
+            color: var(--primary-color);
+        }
+        
+        /* 动画展示区 */
+        .animation-container {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .animation-preview {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+        
+        .molecule-visual {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .animation-description {
+            padding: 30px;
+        }
+        
+        .animation-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn-small {
+            padding: 8px 20px;
+            border-radius: var(--radius);
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-small:hover {
+            background-color: #2980b9;
+        }
+        
+        /* 视频区 */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .video-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .video-thumbnail {
+            height: 180px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--secondary-color);
+        }
+        
+        .video-info {
+            padding: 20px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--light-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+            }
+            
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    赵旭浪<span>在线教学</span>
+                </div>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="active">首页</a></li>
+                    <li><a href="#resources">学习资料</a></li>
+                    <li><a href="#animations">教学动画</a></li>
+                    <li><a href="#videos">课程视频</a></li>
+                    <li><a href="#about">关于我</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- 首页英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>化学教学与分子对称性</h1>
+            <p>探索群论在化学中的应用，通过交互式动画理解分子对称性操作与点群分类</p>
+            <div class="cta-buttons">
+                <a href="#animations" class="btn btn-primary">
+                    <i class="fas fa-play-circle"></i> 查看动画演示
+                </a>
+                <a href="#resources" class="btn btn-secondary">
+                    <i class="fas fa-download"></i> 下载学习资料
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 学习资料区 -->
+    <section id="resources">
+        <div class="container">
+            <h2 class="section-title">学习<span>资料</span></h2>
+            <div class="resources-grid">
+                <!-- 文档资料 -->
+                <div class="resource-card">
+                    <div class="card-header">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>教学文档</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="resource-list">
+                            <li>
+                                <span>群论与分子对称性讲义</span>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-download"></i> PDF
+                                </a>
+                            </li>
+                            <li>
+                                <span>分子点群特征标表</span>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-download"></i> PDF
+                                </a>
+                            </li>
+                            <li>
+                                <span>对称操作练习题</span>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-download"></i> DOC
+                                </a>
+                            </li>
+                            <li>
+                                <span>分子轨道对称性分析</span>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-download"></i> PDF
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- PPT课件 -->
+                <div class="resource-card">
+                    <div class="card-header">
+                        <i class="fas fa-presentation-screen"></i>
+                        <h3>PPT课件</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="resource-list">
+                            <li>
+                                <span>分子对称性基础</span>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-download"></i> PPTX
+                                </a>
+                            </li>
+                            <li>
+                                <span>群论在化学中的应用</span>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-download"></i> PPTX
+                                </a>
+                            </li>
+                            <li>
+                                <span>分子点群分类</span>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-download"></i> PPTX
+                                </a>
+                            </li>
+                            <li>
+                                <span>对称性与分子振动</span>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-download"></i> PPTX
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 笔记与习题 -->
+                <div class="resource-card">
+                    <div class="card-header">
+                        <i class="fas fa-book-open"></i>
+                        <h3>笔记与习题</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="resource-list">
+                            <li>
+                                <span>群论学习笔记</span>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-download"></i> DOC
+                                </a>
+                            </li>
+                            <li>
+                                <span>对称操作习题集</span>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-download"></i> PDF
+                                </a>
+                            </li>
+                            <li>
+                                <span>分子对称性实验指导</span>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-download"></i> PDF
+                                </a>
+                            </li>
+                            <li>
+                                <span>考试复习提纲</span>
+                                <a href="#" class="resource-link">
+                                    <i class="fas fa-download"></i> PDF
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 教学动画区 -->
+    <section id="animations">
+        <div class="container">
+            <h2 class="section-title">教学<span>动画</span></h2>
+            <div class="animation-container">
+                <div class="animation-preview">
+                    <div class="molecule-visual">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <h3 style="margin-top: 20px;">分子对称性交互演示</h3>
+                    <p>点击下方按钮查看完整动画演示</p>
+                    <div class="animation-controls">
+                        <a href="symmetry.html" class="btn-small">
+                            <i class="fas fa-external-link-alt"></i> 查看完整动画
+                        </a>
+                        <button class="btn-small" onclick="showAnimationInfo()">
+                            <i class="fas fa-info-circle"></i> 动画说明
+                        </button>
+                    </div>
+                </div>
+                <div class="animation-description">
+                    <h4>动画功能介绍</h4>
+                    <p>本交互式动画演示了群论中的分子对称性操作，包括：</p>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>旋转操作 (Cₙ) - 展示分子绕对称轴的旋转</li>
+                        <li>反映操作 (σ) - 展示分子通过镜面的反映</li>
+                        <li>反演操作 (i) - 展示分子通过反演中心的反演</li>
+                        <li>恒等操作 (E) - 展示分子的初始状态</li>
+                    </ul>
+                    <p style="margin-top: 15px;">支持多种分子模型：水分子(C₂v)、氨分子(C₃v)、甲烷(T₄)、苯分子(D₆h)等。</p>
+                </div>
+            </div>
+            
+            <!-- 其他动画缩略图 -->
+            <div style="margin-top: 40px;">
+                <h4 style="margin-bottom: 20px; color: var(--primary-color);">更多教学动画</h4>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="card-header" style="background-color: #9b59b6;">
+                            <i class="fas fa-wave-square"></i>
+                            <h3>分子振动模式</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>展示不同分子的振动模式与对称性关系</p>
+                            <div style="margin-top: 15px;">
+                                <button class="btn-small" style="background-color: #9b59b6;">
+                                    <i class="fas fa-play"></i> 预览
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="card-header" style="background-color: #e67e22;">
+                            <i class="fas fa-orbit"></i>
+                            <h3>分子轨道动画</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>展示分子轨道形成与对称性匹配</p>
+                            <div style="margin-top: 15px;">
+                                <button class="btn-small" style="background-color: #e67e22;">
+                                    <i class="fas fa-play"></i> 预览
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="card-header" style="background-color: #27ae60;">
+                            <i class="fas fa-cube"></i>
+                            <h3>晶体结构对称</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>展示晶体结构中的对称元素与空间群</p>
+                            <div style="margin-top: 15px;">
+                                <button class="btn-small" style="background-color: #27ae60;">
+                                    <i class="fas fa-play"></i> 预览
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 课程视频区 -->
+    <section id="videos">
+        <div class="container">
+            <h2 class="section-title">课程<span>视频</span></h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="video-info">
+                        <h4>分子对称性基础</h4>
+                        <p style="margin: 10px 0; color: #666;">时长: 25分钟</p>
+                        <a href="#" class="resource-link">
+                            <i class="fas fa-play"></i> 观看视频
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="video-info">
+                        <h4>群论在化学中的应用</h4>
+                        <p style="margin: 10px 0; color: #666;">时长: 32分钟</p>
+                        <a href="#" class="resource-link">
+                            <i class="fas fa-play"></i> 观看视频
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="video-info">
+                        <h4>分子点群的确定方法</h4>
+                        <p style="margin: 10px 0; color: #666;">时长: 28分钟</p>
+                        <a href="#" class="resource-link">
+                            <i class="fas fa-play"></i> 观看视频
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer id="about">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">关于我</h3>
+                    <p>化学教师，专注于物理化学与群论教学。致力于通过交互式动画帮助学生理解复杂的分子对称性概念。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#resources">学习资料</a></li>
+                        <li><a href="#animations">教学动画</a></li>
+                        <li><a href="#videos">课程视频</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">联系信息</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> zhaoxulang@example.com</li>
+                        <li><i class="fas fa-phone"></i> 138-XXXX-XXXX</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 化学学院，XX大学</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 赵旭浪在线教学. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    // 关闭移动端菜单
+                    navLinks.classList.remove('active');
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 动画信息弹窗
+        function showAnimationInfo() {
+            alert("分子对称性动画功能说明：\n\n1. 选择不同的分子模型\n2. 点击对称操作按钮查看动画效果\n3. 观察对称元素的显示\n4. 使用鼠标旋转、缩放分子视图\n\n点击'查看完整动画'按钮进入完整交互界面。");
+        }
+        
+        // 高亮当前导航项
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navItems = document.querySelectorAll('.nav-links a');
+            
+            let currentSectionId = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if(window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSectionId = '#' + section.id;
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if(item.getAttribute('href') === currentSectionId) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // 模拟下载功能
+        document.querySelectorAll('.resource-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const fileName = this.parentElement.querySelector('span').textContent;
+                alert(`模拟下载: ${fileName}\n\n在实际应用中，这里会开始下载文件。`);
+            });
+        });
+    </script>
+</body>
+</html>
